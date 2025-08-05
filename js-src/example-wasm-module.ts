@@ -1,6 +1,6 @@
 import { Factory, create_env } from './struct-builder-impl';
 import type { Pointer } from './struct-builder-impl';
-import { tryAsync, trySync } from './utils';
+import { tryAsync, trySync, get_base_url } from './utils';
 
 export type ModuleConfig = {
   cnv: HTMLCanvasElement;
@@ -10,7 +10,7 @@ export type ModuleConfig = {
 export async function load_module({ cnv, ctx }: ModuleConfig) {
   // This should be enough memory for everyone
   const wasm_result = await tryAsync(() => WebAssembly.instantiateStreaming(
-    fetch('/output.wasm'),
+    fetch(get_base_url() + 'output.wasm'),
     {
       env: create_env({
         malloc: (size: number) => heap.malloc(size),

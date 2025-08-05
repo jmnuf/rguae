@@ -10,7 +10,9 @@ const folder_exists = async (path: string) => {
   }
 };
 
-const $ = Bun.$.cwd(__dirname);
+const $ = Bun.$.cwd(__dirname).env(Object.assign({
+  PUBLIC_BASE_PATHNAME: '/rguae',
+}, Bun.env));
 console.log('[INFO] Building website...');
 
 const dist_path = path.join(__dirname, 'dist');
@@ -25,8 +27,14 @@ if (await folder_exists(dist_path)) {
 console.log('[CMD] mkdir dist');
 await mkdir(dist_path);
 
-console.log('[CMD]', `bun build index.html foo.html --minify --outdir=dist`);
-await $`bun build index.html foo.html --minify --outdir=${dist_path}`;
+const inputs = ['index.html', 'foo.html'];
+console.log('[CMD]', 'bun build', ...inputs);
+await Bun.build({
+  entrypoints: inputs.map(fp => path.join(__dirname, fp)),
+  target: 'browser',
+  outdir: path.join(__dirname, 'dist'),
+  minify: true,
+});
 
 const pub_files = await readdir(path.join(__dirname, 'pub'), {
   recursive: true,

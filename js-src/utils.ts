@@ -23,3 +23,5 @@ export const trySync = <T, E = Error>(syncFunc: () => T): Result<T, E> => {
   }
 }
 
+export const get_base_url = () => (location.origin + '/rguae');
+

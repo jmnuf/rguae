@@ -1,7 +1,8 @@
 import { create_env, Factory, type Pointer } from './struct-builder-impl.ts';
+import { get_base_url, } from './utils.ts';
 
 (async function main() {
-  const wasm = await WebAssembly.instantiateStreaming(fetch('/foo.wasm'), {
+  const wasm = await WebAssembly.instantiateStreaming(fetch(get_base_url() + '/foo.wasm'), {
     env: create_env({
       js_printn_zstr_array(list_ptr: Pointer) {
         let buf = '';

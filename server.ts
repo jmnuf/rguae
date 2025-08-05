@@ -32,7 +32,7 @@ Bun.serve({
   },
   async fetch(req) {
     const url = new URL(req.url);
-    const pathname = url.pathname;
+    const pathname = url.pathname.startsWith('/rguae') ? url.pathname.substring('/rguae'.length) : url.pathname;
     const f = Bun.file(path.join('./pub', pathname));
     if (!await f.exists()) {
       return new Response('Not Found', { status: 404 });

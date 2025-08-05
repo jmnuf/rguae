@@ -10,7 +10,7 @@ export type ModuleConfig = {
 export async function load_module({ cnv, ctx }: ModuleConfig) {
   // This should be enough memory for everyone
   const wasm_result = await tryAsync(() => WebAssembly.instantiateStreaming(
-    fetch(get_base_url() + 'output.wasm'),
+    fetch(get_base_url() + '/output.wasm'),
     {
       env: create_env({
         malloc: (size: number) => heap.malloc(size),

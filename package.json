@@ -1,0 +1,15 @@
+{
+  "name": "wasm-struct-builder",
+  "module": "index.ts",
+  "type": "module",
+  "scripts": {
+    "dev": "bun run --hot server.ts",
+    "build": "./c2wasm.sh && bun run ./build.ts"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  }
+}

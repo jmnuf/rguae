@@ -1,0 +1,44 @@
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  width: 100vw;
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1;
+  grid-template-rows: 1;
+
+  --canva-padding: 0.75rem;
+}
+
+#app {
+  postion: relative;
+  padding: var(--canva-padding);
+  height: 100%;
+}
+
+#app > canvas {
+  border: 0.25rem solid black;
+  border-radius: 4px;
+}
+
+@media (min-aspect-ratio: 16/9) {
+  #app > canvas {
+    position: absolute;
+    height: 100%;
+    left: 50%;
+    transform: translate(-50%, 0%)
+  }
+}
+@media not (min-aspect-ratio: 16/9) {
+  #app > canvas {
+    position: absolute;
+    width: calc(100% - var(--canva-padding) * 2);
+    top: 50%;
+    transform: translate(0%, -50%)
+  }
+}
+
